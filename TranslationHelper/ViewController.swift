@@ -102,7 +102,7 @@ extension ViewController {
             } else {
                 translatePhrase(phrase: phrase) { translatedPhrase in
                     if let translatedPhrase = translatedPhrase {
-                        let translation = item.replacingOccurrences(of: phrase, with: translatedPhrase)
+                        let translation = item.replacingOccurrences(of: "\(self.delimiters.0)\(phrase)", with: "\(self.delimiters.0)\(translatedPhrase)")
                         self.translatedValues.append("\(translation)\(self.delimiters.1)")
                         self.currentIndex += 1
                         self.translatePhrases(completion: completion)
