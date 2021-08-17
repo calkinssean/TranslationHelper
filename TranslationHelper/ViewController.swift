@@ -78,11 +78,13 @@ class ViewController: NSViewController {
 extension ViewController {
     
     func translateText() {
+        button.isEnabled = false
         itemsToBeTranslated = sourceTextView.string.components(separatedBy: delimiters.1)
         translatedValues = []
         currentIndex = 0
         translatePhrases {
             DispatchQueue.main.async {
+                self.button.isEnabled = true
                 self.destinationTextView.string = self.translatedValues.joined()
             }
         }
