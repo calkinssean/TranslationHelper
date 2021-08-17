@@ -32,7 +32,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         startDelimiter.isEnabled = false
         endDelimiter.isEnabled = false
-        SwiftGoogleTranslate.shared.start(with: "YOUR_API_KEY_HERE")
+        SwiftGoogleTranslate.shared.start(with: "AIzaSyC8Go2mB1BimlF8sl7yQ9Q-YzTN53A4tlc")
         languagePopup.removeAllItems()
         fetchLanguages()
     }
