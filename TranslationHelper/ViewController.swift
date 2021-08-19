@@ -19,6 +19,9 @@ class ViewController: NSViewController {
     @IBOutlet weak var languagePopup: NSPopUpButton!
     
     // MARK: - Properties
+    let iOS = ("\" = \"", "\";")
+    let Android = ("\">", "</string>")
+    let JSON = ("\": \"","\",")
     let source: SwiftGoogleTranslate.Language = SwiftGoogleTranslate.Language(language: "en", name: "English")
     var target: SwiftGoogleTranslate.Language = SwiftGoogleTranslate.Language(language: "en", name: "English")
     var languages: [SwiftGoogleTranslate.Language] = []
@@ -32,7 +35,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         startDelimiter.isEnabled = false
         endDelimiter.isEnabled = false
-        SwiftGoogleTranslate.shared.start(with: "AIzaSyC8Go2mB1BimlF8sl7yQ9Q-YzTN53A4tlc")
+        SwiftGoogleTranslate.shared.start(with: "YOUR_API_KEY_HERE")
         languagePopup.removeAllItems()
         fetchLanguages()
     }
@@ -44,19 +47,28 @@ class ViewController: NSViewController {
     }
 
     @IBAction func translateTapped(_ sender: NSButtonCell) {
+        if formatSegmentedControl.indexOfSelectedItem == 3 {
+            delimiters = (startDelimiter.stringValue, endDelimiter.stringValue)
+        }
         translateText()
     }
     
     @IBAction func segmemtedControlChanged(_ sender: NSSegmentedCell) {
         switch sender.selectedSegment {
         case 0:
-            delimiters = ("\" = \"", "\";")
+            delimiters = iOS
             startDelimiter.isEnabled = false
             endDelimiter.isEnabled = false
             startDelimiter.stringValue = ""
             endDelimiter.stringValue = ""
         case 1:
-            delimiters = ("\">", "</string>")
+            delimiters = Android
+            startDelimiter.isEnabled = false
+            endDelimiter.isEnabled = false
+            startDelimiter.stringValue = ""
+            endDelimiter.stringValue = ""
+        case 2:
+            delimiters = JSON
             startDelimiter.isEnabled = false
             endDelimiter.isEnabled = false
             startDelimiter.stringValue = ""
@@ -64,7 +76,6 @@ class ViewController: NSViewController {
         default:
             startDelimiter.isEnabled = true
             endDelimiter.isEnabled = true
-            delimiters = (startDelimiter.stringValue, endDelimiter.stringValue)
         }
     }
     
@@ -80,6 +91,9 @@ extension ViewController {
     func translateText() {
         button.isEnabled = false
         itemsToBeTranslated = sourceTextView.string.components(separatedBy: delimiters.1)
+        print(sourceTextView.string)
+        print(itemsToBeTranslated.count)
+        print(delimiters)
         translatedValues = []
         currentIndex = 0
         translatePhrases {
@@ -95,6 +109,7 @@ extension ViewController {
             completion()
         } else {
             let item = itemsToBeTranslated[currentIndex]
+            print(item)
             guard let phrase = item.components(separatedBy: delimiters.0).last else { return }
             if phrase.replacingOccurrences(of: " ", with: "") == "" || phrase.replacingOccurrences(of: "\n", with: "") == "" {
                 currentIndex += 1
