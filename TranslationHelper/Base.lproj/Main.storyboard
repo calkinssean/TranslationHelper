@@ -742,13 +742,14 @@
                                 </textFieldCell>
                             </textField>
                             <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fju-k5-tif">
-                                <rect key="frame" x="1132" y="1285" width="371" height="24"/>
-                                <segmentedCell key="cell" borderStyle="border" alignment="left" style="rounded" trackingMode="selectOne" id="2So-X7-Vhl">
+                                <rect key="frame" x="1070" y="1285" width="495" height="24"/>
+                                <segmentedCell key="cell" borderStyle="border" alignment="left" segmentDistribution="fillEqually" style="rounded" trackingMode="selectOne" id="2So-X7-Vhl">
                                     <font key="font" metaFont="system"/>
                                     <segments>
                                         <segment label="iOS" width="120"/>
                                         <segment label="Android" width="120" selected="YES" tag="1"/>
-                                        <segment label="Custom" width="119"/>
+                                        <segment label="JSON" width="119"/>
+                                        <segment label="Custom"/>
                                     </segments>
                                     <connections>
                                         <action selector="segmemtedControlChanged:" target="XfG-lQ-9wD" id="e0i-pq-USt"/>
